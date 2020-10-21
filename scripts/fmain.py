@@ -88,20 +88,24 @@ class fmGUI:
                 break
             elif event in 'Ok':
                 if values['FILETYPE'] not in file_type:
-                    append_file_type(values['FILETYPE'])
-                    run_fmover = FileMover()
-                    append_mode(values['OPERATION'])
-                    if len(sort_list) == 1:
-                        for value in sort_list:
-                            if value == 'Sort by Type':
-                                run_fmover.filemover(
-                                    values['OPERATION'], value, values['OVERWRITE'])
-                            else:
-                                run_fmover.filemover(
-                                    values['OPERATION'], None, values['OVERWRITE'])
+                	# my code will go here =========================================== <---- look
+                	add_file_type = ask_user()
+                	if add_file_type:
+                    	append_file_type(values['FILETYPE'])
                     else:
-                        run_fmover.filemover(
-                            values['OPERATION'], None, values['OVERWRITE'])
+	                    run_fmover = FileMover()
+	                    append_mode(values['OPERATION'])
+	                    if len(sort_list) == 1:
+	                        for value in sort_list:
+	                            if value == 'Sort by Type':
+	                                run_fmover.filemover(
+	                                    values['OPERATION'], value, values['OVERWRITE'])
+	                            else:
+	                                run_fmover.filemover(
+	                                    values['OPERATION'], None, values['OVERWRITE'])
+	                    else:
+	                        run_fmover.filemover(
+	                            values['OPERATION'], None, values['OVERWRITE'])
 
                 else:
                     run_fmover = FileMover()
