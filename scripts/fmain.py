@@ -52,6 +52,7 @@ code_list = ['.c', '.cgi', '.pl', '.class',
               '.java', '.php', '.py', '.pyc',
                '.sh', '.swift', '.vb']
 
+file_type_list = [image_list, archive_list, textf_list, video_list, audio_list, code_list]
 
 """PySimpleGUI Main Window
 
@@ -276,6 +277,7 @@ def append_file_type(value):
         pass
     file_type.append(value)
     translate_filetype()
+    print(file_type)
     return value
 
 
@@ -300,9 +302,11 @@ class FileMover():
                 print(os.listdir(get_path('src')))
                 for file in os.listdir(get_path('src')):
                     file_ending = get_file_type(file)
+                    exists = search_file_type(file_ending)
                     if '.'+file_ending not in file_type:
                         add_file_type = ask_user()
                         if add_file_type:
+                            pass
                             file_type.append('.'+file_ending)
                     is_file_in_curr_dir = os.path.isfile(
                         get_path('dst') + "/" + file)
@@ -385,8 +389,7 @@ def get_file_type(file):
 
 
 def ask_user():
-    text = sg.popup_get_text('unknown file type found',
-                             'do you want to add them to the list? Y/n')
+    text = sg.popup_get_text('do you want to add them to the list? Y/n', 'unknown file type found')
     add_file = None
     if text == 'Y':
         add_file = True
@@ -394,6 +397,17 @@ def ask_user():
         add_file = False
 
     return add_file
+
+
+def search_file_type(file_ending):
+
+    flag = False
+    for list_type in file_type_list:
+
+        if '.'+file_ending in list_type:
+
+            return True
+
 
 """Sorting Options
 
